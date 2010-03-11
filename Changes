@@ -1,6 +1,8 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+
+1.100701  2010-03-11 23:47:35 Europe/Vienna
     - it's not an "online" documentation (thanks avar)
 
 1.100700  2010-03-11 14:35:45 Europe/Vienna
