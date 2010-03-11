@@ -77,3 +77,7 @@ In C<dist.ini>:
 This plugin adds a very simple F<INSTALL> file to the distribution, telling
 the user how to install this distribution.
 
+=function gather_files
+
+Builds and writes the C<INSTALL> file.
+
