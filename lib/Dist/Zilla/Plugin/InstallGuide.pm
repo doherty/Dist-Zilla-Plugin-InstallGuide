@@ -40,7 +40,7 @@ So you can do:
 
     % perldoc {{ $package }}
 
-to read the documentation online with your favorite pager.
+to read the documentation with your favorite pager.
 |;
     my $content = $self->fill_in_string(
         $template,
