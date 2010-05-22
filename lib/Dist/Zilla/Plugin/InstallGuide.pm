@@ -4,14 +4,14 @@ use warnings;
 
 package Dist::Zilla::Plugin::InstallGuide;
 
-# ABSTRACT: build an INSTALL file
+# ABSTRACT: Build an INSTALL file
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 with 'Dist::Zilla::Role::TextTemplate';
 
 sub gather_files {
-    my ($self, $arg) = @_;
+    my $self = shift;
     require Dist::Zilla::File::InMemory;
     (my $main_package = $self->zilla->name) =~ s!-!::!g;
     my $template = q|
