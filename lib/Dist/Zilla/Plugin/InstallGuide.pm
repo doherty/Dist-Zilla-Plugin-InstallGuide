@@ -36,7 +36,7 @@ Alternatively, if your CPAN shell is set up, you should just be able to do:
 {{ $manual_installation }}
 ## Documentation
 
-{{ $dist->name }} documentation is available as in POD.
+{{ $dist->name }} documentation is available as POD.
 You can run perldoc from a shell to read the documentation:
 
     % perldoc {{ $package }}

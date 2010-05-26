@@ -1,6 +1,8 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+    - Various small grammar and spelling tweaks. Also added mention of sudo.
+      (thanks autarch)
 
 1.101460  2010-05-26 10:12:15 Europe/Vienna
     - added support Module::Build
