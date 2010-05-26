@@ -118,7 +118,12 @@ In C<dist.ini>:
 This plugin adds a very simple F<INSTALL> file to the distribution, telling
 the user how to install this distribution.
 
-=function gather_files
+You should use this plugin in your L<Dist::Zilla> configuration after
+C<[MakeMaker]> or C<[ModuleBuild]> so that it can determine what kind of
+distribution you are building and which installation instructions are
+appropriate.
+
+=function setup_installer
 
 Builds and writes the C<INSTALL> file.
 
