@@ -13,37 +13,38 @@ with 'Dist::Zilla::Role::TextTemplate';
 my $template = q|
 This is the Perl distribution {{ $dist->name }}.
 
-## Installation
+Installing {{ $dist->name }} is straightforward.
 
-{{ $dist->name }} installation is straightforward.
-
-### Installation with cpanm
+## Installation with cpanm
 
 If you have cpanm, you only need one line:
 
     % cpanm {{ $package }}
 
-### Installating with the CPAN shell
+If you are installing into a system-wide directory, you may need to pass the
+"-S" flag to cpanm, which uses sudo to install the module:
+
+    % cpanm -S {{ $package }}
+
+## Installing with the CPAN shell
 
 Alternatively, if your CPAN shell is set up, you should just be able to do:
 
     % cpan {{ $package }}
 
-### Manual installation
+## Manual installation
 {{ $manual_installation }}
 ## Documentation
 
 {{ $dist->name }} documentation is available as in POD.
-So you can do:
+You can run perldoc from a shell to read the documentation:
 
     % perldoc {{ $package }}
-
-to read the documentation with your favorite pager.
 |;
 
 my $makemaker_manual_installation = q|
-As a last resort, you can manually install it. Download it, unpack it, then
-build it as per the usual:
+As a last resort, you can manually install it. Download the tarball, untar it,
+then build it:
 
     % perl Makefile.PL
     % make && make test
@@ -51,11 +52,15 @@ build it as per the usual:
 Then install it:
 
     % make install
+
+If you are installing into a system-wide directory, you may need to run:
+
+    % sudo make install
 |;
 
 my $module_build_manual_installation = q|
-As a last resort, you can manually install it. Download it, unpack it, then
-build it:
+As a last resort, you can manually install it. Download the tarball, untar it,
+then build it:
 
     % perl Build.PL
     % ./Build && ./Build test
@@ -63,6 +68,10 @@ build it:
 Then install it:
 
     % ./Build install
+
+If you are installing into a system-wide directory, you may need to run:
+
+    % sudo ./Build install
 |;
 
 sub setup_installer {
