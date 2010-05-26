@@ -1,6 +1,8 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+
+1.101460  2010-05-26 10:12:15 Europe/Vienna
     - added support Module::Build
     - note cpanm as preferred installation method
 
