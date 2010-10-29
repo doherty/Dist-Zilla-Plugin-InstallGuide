@@ -110,11 +110,13 @@ __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
 
-=pod
+=begin :prelude
 
 =for test_synopsis
 1;
 __END__
+
+=end :prelude
 
 =head1 SYNOPSIS
 
@@ -132,7 +134,7 @@ C<[MakeMaker]> or C<[ModuleBuild]> so that it can determine what kind of
 distribution you are building and which installation instructions are
 appropriate.
 
-=function setup_installer
+=method setup_installer
 
 Builds and writes the C<INSTALL> file.
 
