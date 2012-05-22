@@ -76,14 +76,13 @@ If you are installing into a system-wide directory, you may need to run:
 
 sub setup_installer {
     my $self = shift;
-    my $manual_installation;
+    my $manual_installation = '';
     for (@{ $self->zilla->files }) {
         if ($_->name eq 'Makefile.PL') {
-            $manual_installation = $makemaker_manual_installation;
-            last;
-        } elsif ($_->name eq 'Build.PL') {
-            $manual_installation = $module_build_manual_installation;
-            last;
+            $manual_installation .= $makemaker_manual_installation;
+        }
+        elsif ($_->name eq 'Build.PL') {
+            $manual_installation .= $module_build_manual_installation;
         }
     }
     unless (defined $manual_installation) {
