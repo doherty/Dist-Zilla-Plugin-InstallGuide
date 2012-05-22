@@ -5,10 +5,35 @@ use warnings;
 package Dist::Zilla::Plugin::InstallGuide;
 
 # ABSTRACT: Build an INSTALL file
+# VERSION
 use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::InstallTool';
 with 'Dist::Zilla::Role::TextTemplate';
+
+=head1 SYNOPSIS
+
+In C<dist.ini>:
+
+    [InstallGuide]
+
+=for test_synopsis
+1;
+__END__
+
+=head1 DESCRIPTION
+
+This plugin adds a very simple F<INSTALL> file to the distribution, telling
+the user how to install this distribution.
+
+You should use this plugin in your L<Dist::Zilla> configuration after
+C<[MakeMaker]> or C<[ModuleBuild]> so that it can determine what kind of
+distribution you are building and which installation instructions are
+appropriate.
+
+=head1 METHODS
+
+=cut
 
 my $template = q|
 This is the Perl distribution {{ $dist->name }}.
@@ -74,6 +99,12 @@ If you are installing into a system-wide directory, you may need to run:
     % sudo ./Build install
 |;
 
+=head2 setup_installer
+
+Builds and writes the C<INSTALL> file.
+
+=cut
+
 sub setup_installer {
     my $self = shift;
     my $manual_installation = '';
@@ -108,32 +139,3 @@ sub setup_installer {
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;
-
-=begin :prelude
-
-=for test_synopsis
-1;
-__END__
-
-=end :prelude
-
-=head1 SYNOPSIS
-
-In C<dist.ini>:
-
-    [InstallGuide]
-
-=head1 DESCRIPTION
-
-This plugin adds a very simple F<INSTALL> file to the distribution, telling
-the user how to install this distribution.
-
-You should use this plugin in your L<Dist::Zilla> configuration after
-C<[MakeMaker]> or C<[ModuleBuild]> so that it can determine what kind of
-distribution you are building and which installation instructions are
-appropriate.
-
-=method setup_installer
-
-Builds and writes the C<INSTALL> file.
-

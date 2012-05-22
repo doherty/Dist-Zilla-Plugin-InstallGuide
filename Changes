@@ -1,6 +1,7 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+    - New maintainer: Mike Doherty, doherty@cpan.org
     - Include instructions for both EUMM and MB if both install tools
       are shipped [RT #56350]
 
