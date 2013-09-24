@@ -1,6 +1,8 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+    - only mention one installer tool even if both are in use, and prefer
+      Build.PL over Makefile.PL, just as cpan clients do
 
 1.200000  2012-05-22
     - New maintainer: Mike Doherty, doherty@cpan.org
