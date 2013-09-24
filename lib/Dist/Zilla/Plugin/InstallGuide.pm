@@ -108,17 +108,21 @@ Builds and writes the C<INSTALL> file.
 sub setup_installer {
     my $self = shift;
     my $manual_installation = '';
-    for (@{ $self->zilla->files }) {
-        if ($_->name eq 'Makefile.PL') {
-            $manual_installation .= $makemaker_manual_installation;
-        }
-        elsif ($_->name eq 'Build.PL') {
-            $manual_installation .= $module_build_manual_installation;
-        }
+
+    my %installer = map { $_->name => 1 }
+        grep { $_->name eq 'Makefile.PL' or $_->name eq 'Build.PL' }
+        @{ $self->zilla->files };
+
+    if ($installer{'Build.PL'}) {
+        $manual_installation .= $module_build_manual_installation;
     }
-    unless (defined $manual_installation) {
+    elsif ($installer{'Makefile.PL'}) {
+        $manual_installation .= $makemaker_manual_installation;
+    }
+    unless ($manual_installation) {
         $self->log_fatal('neither Makefile.PL nor Build.PL is present, aborting');
     }
+
     require Dist::Zilla::File::InMemory;
     (my $main_package = $self->zilla->name) =~ s!-!::!g;
     my $content = $self->fill_in_string(
