@@ -1,1 +1,3 @@
 Dist-Zilla-Plugin-InstallGuide-*
+.build
+_build
