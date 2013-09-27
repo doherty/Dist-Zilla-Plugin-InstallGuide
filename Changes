@@ -1,6 +1,8 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+
+1.200001  2013-09-27
     - only mention one installer tool even if both are in use, and prefer
       Build.PL over Makefile.PL, just as cpan clients do
 
