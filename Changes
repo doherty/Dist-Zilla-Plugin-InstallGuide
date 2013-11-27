@@ -1,30 +1,32 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+  - Re-release with a compile test that won't hang on
+    Windows (thanks, chorny)
 
 1.200001  2013-09-27
-    - only mention one installer tool even if both are in use, and prefer
-      Build.PL over Makefile.PL, just as cpan clients do
+  - only mention one installer tool even if both are in use, and prefer
+    Build.PL over Makefile.PL, just as cpan clients do
 
 1.200000  2012-05-22
-    - New maintainer: Mike Doherty, doherty@cpan.org
-    - Include instructions for both EUMM and MB if both install tools
-      are shipped [RT #56350]
+  - New maintainer: Mike Doherty, doherty@cpan.org
+  - Include instructions for both EUMM and MB if both install tools
+    are shipped [RT #56350]
 
 1.101461  2010-05-26 17:30:09 Europe/Vienna
-    - Various small grammar and spelling tweaks. Also added mention of sudo.
-      (thanks autarch)
+  - Various small grammar and spelling tweaks. Also added mention of sudo.
+    (thanks autarch)
 
 1.101460  2010-05-26 10:12:15 Europe/Vienna
-    - added support Module::Build
-    - note cpanm as preferred installation method
+  - added support Module::Build
+  - note cpanm as preferred installation method
 
 1.101420  2010-05-22 17:05:12 Europe/Vienna
-    - removed weaver.ini since that's handled in Dist::Zilla's [@MARCEL] now
-    - removed unused variable
+  - removed weaver.ini since that's handled in Dist::Zilla's [@MARCEL] now
+  - removed unused variable
 
 1.100701  2010-03-11 23:47:35 Europe/Vienna
-    - it's not an "online" documentation (thanks avar)
+  - it's not an "online" documentation (thanks avar)
 
 1.100700  2010-03-11 14:35:45 Europe/Vienna
-    - original version
+  - original version
