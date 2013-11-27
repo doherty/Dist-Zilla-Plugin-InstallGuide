@@ -14,11 +14,11 @@ my %module_build_args = (
   },
   "dist_abstract" => "Build an INSTALL file",
   "dist_author" => [
-    "Marcel Gr\303\274nauer <marcel\@cpan.org>",
+    "Marcel Gr\x{fc}nauer <marcel\@cpan.org>",
     "Mike Doherty <doherty\@cpan.org>"
   ],
   "dist_name" => "Dist-Zilla-Plugin-InstallGuide",
-  "dist_version" => "1.200001",
+  "dist_version" => "1.200002",
   "license" => "perl",
   "module_name" => "Dist::Zilla::Plugin::InstallGuide",
   "recommends" => {},
@@ -38,22 +38,23 @@ my %module_build_args = (
     "File::Spec" => 0,
     "IO::Handle" => 0,
     "IPC::Open3" => 0,
-    "Test::More" => "0.88"
+    "Test::More" => 0
   }
 );
 
 
+my %fallback_build_requires = (
+  "File::Spec" => 0,
+  "IO::Handle" => 0,
+  "IPC::Open3" => 0,
+  "Module::Build" => "0.3601",
+  "Test::More" => 0
+);
+
+
 unless ( eval { Module::Build->VERSION(0.4004) } ) {
-  my $tr = delete $module_build_args{test_requires};
-  my $br = $module_build_args{build_requires};
-  for my $mod ( keys %$tr ) {
-    if ( exists $br->{$mod} ) {
-      $br->{$mod} = $tr->{$mod} if $tr->{$mod} > $br->{$mod};
-    }
-    else {
-      $br->{$mod} = $tr->{$mod};
-    }
-  }
+  delete $module_build_args{test_requires};
+  $module_build_args{build_requires} = \%fallback_build_requires;
 }
 
 my $build = Module::Build->new(%module_build_args);

@@ -1,6 +1,8 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+
+1.200002  2013-11-27
   - Re-release with a compile test that won't hang on
     Windows (thanks, chorny)
 
