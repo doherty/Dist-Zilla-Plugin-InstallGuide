@@ -8,7 +8,7 @@ package Dist::Zilla::Plugin::InstallGuide;
 # VERSION
 use Moose;
 use Moose::Autobox;
-with 'Dist::Zilla::Role::InstallTool';
+with 'Dist::Zilla::Role::FileGatherer';
 with 'Dist::Zilla::Role::TextTemplate';
 
 =head1 SYNOPSIS
@@ -99,45 +99,51 @@ If you are installing into a system-wide directory, you may need to run:
     % sudo ./Build install
 |;
 
-=head2 setup_installer
+=head2 gather_files
 
-Builds and writes the C<INSTALL> file.
+Creates the C<INSTALL> file and prepare its contents, which will be finalized
+near the end of the build process.
 
 =cut
 
-sub setup_installer {
+sub gather_files {
     my $self = shift;
-    my $manual_installation = '';
 
-    my %installer = map { $_->name => 1 }
-        grep { $_->name eq 'Makefile.PL' or $_->name eq 'Build.PL' }
-        @{ $self->zilla->files };
+    require Dist::Zilla::File::FromCode;
 
-    if ($installer{'Build.PL'}) {
-        $manual_installation .= $module_build_manual_installation;
-    }
-    elsif ($installer{'Makefile.PL'}) {
-        $manual_installation .= $makemaker_manual_installation;
-    }
-    unless ($manual_installation) {
-        $self->log_fatal('neither Makefile.PL nor Build.PL is present, aborting');
-    }
+    my $zilla = $self->zilla;
+    $self->add_file(Dist::Zilla::File::FromCode->new({
+        name => 'INSTALL',
+        code => sub {
+            my $manual_installation = '';
 
-    require Dist::Zilla::File::InMemory;
-    (my $main_package = $self->zilla->name) =~ s!-!::!g;
-    my $content = $self->fill_in_string(
-        $template,
-        {   dist                => \($self->zilla),
-            package             => $main_package,
-            manual_installation => $manual_installation
-        }
-    );
-    my $file = Dist::Zilla::File::InMemory->new(
-        {   content => $content,
-            name    => 'INSTALL',
-        }
-    );
-    $self->add_file($file);
+            my %installer = map { $_->name => 1 }
+                grep { $_->name eq 'Makefile.PL' or $_->name eq 'Build.PL' }
+                @{ $zilla->files };
+
+            if ($installer{'Build.PL'}) {
+                $manual_installation .= $module_build_manual_installation;
+            }
+            elsif ($installer{'Makefile.PL'}) {
+                $manual_installation .= $makemaker_manual_installation;
+            }
+            unless ($manual_installation) {
+                $self->log_fatal('neither Makefile.PL nor Build.PL is present, aborting');
+            }
+
+            (my $main_package = $zilla->name) =~ s!-!::!g;
+
+            my $content = $self->fill_in_string(
+                $template,
+                {   dist                => \$zilla,
+                    package             => $main_package,
+                    manual_installation => $manual_installation
+                }
+            );
+            return $content;
+        },
+    }));
+
     return;
 }
 __PACKAGE__->meta->make_immutable;

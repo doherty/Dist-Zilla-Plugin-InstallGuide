@@ -1,6 +1,8 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+  - create file at in the GatherFiles phase and munge it with a FromCode file
+    type, to ensure the file exists early enough that other plugins can see it
 
 1.200002  2013-11-27
   - Re-release with a compile test that won't hang on
