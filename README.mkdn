@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::InstallGuide - Build an INSTALL file
 
 # VERSION
 
-version 1.200002
+version 1.200003
 
 # SYNOPSIS
 
@@ -24,9 +24,10 @@ appropriate.
 
 # METHODS
 
-## setup\_installer
+## gather\_files
 
-Builds and writes the `INSTALL` file.
+Creates the `INSTALL` file and prepare its contents, which will be finalized
+near the end of the build process.
 
 # AVAILABILITY
 
