@@ -1,6 +1,7 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+  - Enable subclasses to override installation instruction text [gh-4]
 
 1.200003  2014-04-29
   - create file at in the GatherFiles phase and munge it with a FromCode file

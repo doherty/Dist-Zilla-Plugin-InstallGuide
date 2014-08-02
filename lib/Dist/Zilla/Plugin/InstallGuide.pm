@@ -35,7 +35,7 @@ appropriate.
 
 =cut
 
-my $template = q|
+has template => (is => 'ro', isa => 'Str', default => <<'END_TEXT');
 This is the Perl distribution {{ $dist->name }}.
 
 Installing {{ $dist->name }} is straightforward.
@@ -58,6 +58,7 @@ Alternatively, if your CPAN shell is set up, you should just be able to do:
     % cpan {{ $package }}
 
 ## Manual installation
+
 {{ $manual_installation }}
 ## Documentation
 
@@ -65,9 +66,9 @@ Alternatively, if your CPAN shell is set up, you should just be able to do:
 You can run perldoc from a shell to read the documentation:
 
     % perldoc {{ $package }}
-|;
+END_TEXT
 
-my $makemaker_manual_installation = q|
+has makemaker_manual_installation => (is => 'ro', isa => 'Str', default => <<'END_TEXT');
 As a last resort, you can manually install it. Download the tarball, untar it,
 then build it:
 
@@ -81,9 +82,9 @@ Then install it:
 If you are installing into a system-wide directory, you may need to run:
 
     % sudo make install
-|;
+END_TEXT
 
-my $module_build_manual_installation = q|
+has module_build_manual_installation => (is => 'ro', isa => 'Str', default => <<'END_TEXT');
 As a last resort, you can manually install it. Download the tarball, untar it,
 then build it:
 
@@ -97,7 +98,41 @@ Then install it:
 If you are installing into a system-wide directory, you may need to run:
 
     % sudo ./Build install
-|;
+END_TEXT
+
+has file_content => (is => 'ro', isa => 'Str', lazy => 1, builder => '_build_file_content');
+
+sub _build_file_content {
+    my $self = shift;
+    my $zilla = $self->zilla;
+
+    my $manual_installation = '';
+
+    my %installer = map { $_->name => 1 }
+        grep { $_->name eq 'Makefile.PL' or $_->name eq 'Build.PL' }
+        @{ $zilla->files };
+
+    if ($installer{'Build.PL'}) {
+        $manual_installation .= $self->module_build_manual_installation;
+    }
+    elsif ($installer{'Makefile.PL'}) {
+        $manual_installation .= $self->makemaker_manual_installation;
+    }
+    unless ($manual_installation) {
+        $self->log_fatal('neither Makefile.PL nor Build.PL is present, aborting');
+    }
+
+    (my $main_package = $zilla->name) =~ s!-!::!g;
+
+    my $content = $self->fill_in_string(
+        $self->template,
+        {   dist                => \$zilla,
+            package             => $main_package,
+            manual_installation => $manual_installation
+        }
+    );
+    return $content;
+}
 
 =head2 gather_files
 
@@ -110,38 +145,9 @@ sub gather_files {
     my $self = shift;
 
     require Dist::Zilla::File::FromCode;
-
-    my $zilla = $self->zilla;
     $self->add_file(Dist::Zilla::File::FromCode->new({
         name => 'INSTALL',
-        code => sub {
-            my $manual_installation = '';
-
-            my %installer = map { $_->name => 1 }
-                grep { $_->name eq 'Makefile.PL' or $_->name eq 'Build.PL' }
-                @{ $zilla->files };
-
-            if ($installer{'Build.PL'}) {
-                $manual_installation .= $module_build_manual_installation;
-            }
-            elsif ($installer{'Makefile.PL'}) {
-                $manual_installation .= $makemaker_manual_installation;
-            }
-            unless ($manual_installation) {
-                $self->log_fatal('neither Makefile.PL nor Build.PL is present, aborting');
-            }
-
-            (my $main_package = $zilla->name) =~ s!-!::!g;
-
-            my $content = $self->fill_in_string(
-                $template,
-                {   dist                => \$zilla,
-                    package             => $main_package,
-                    manual_installation => $manual_installation
-                }
-            );
-            return $content;
-        },
+        code => sub { $self->file_content },
     }));
 
     return;
