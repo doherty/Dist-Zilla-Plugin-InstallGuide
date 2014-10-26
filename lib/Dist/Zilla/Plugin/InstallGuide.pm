@@ -8,7 +8,7 @@ package Dist::Zilla::Plugin::InstallGuide;
 # VERSION
 use Moose;
 use Moose::Autobox;
-with 'Dist::Zilla::Role::InstallTool';
+with 'Dist::Zilla::Role::FileGatherer';
 with 'Dist::Zilla::Role::TextTemplate';
 
 =head1 SYNOPSIS
@@ -134,14 +134,14 @@ sub _build_file_content {
     return $content;
 }
 
-=head2 setup_installer
+=head2 gather_files
 
 Creates the C<INSTALL> file and prepare its contents, which will be finalized
 near the end of the build process.
 
 =cut
 
-sub setup_installer {
+sub gather_files {
     my $self = shift;
 
     require Dist::Zilla::File::FromCode;
