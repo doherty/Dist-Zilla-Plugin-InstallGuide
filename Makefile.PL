@@ -24,9 +24,11 @@ my %WriteMakefileArgs = (
   "MIN_PERL_VERSION" => "5.008",
   "NAME" => "Dist::Zilla::Plugin::InstallGuide",
   "PREREQ_PM" => {
-    "Dist::Zilla::File::FromCode" => 0,
-    "Dist::Zilla::Role::InstallTool" => 0,
+    "Dist::Zilla::File::InMemory" => 0,
+    "Dist::Zilla::Role::FileGatherer" => 0,
+    "Dist::Zilla::Role::FileMunger" => 0,
     "Dist::Zilla::Role::TextTemplate" => 0,
+    "List::Util" => 0,
     "Moose" => 0,
     "Moose::Autobox" => 0,
     "strict" => 0,
@@ -36,9 +38,13 @@ my %WriteMakefileArgs = (
     "File::Spec" => 0,
     "IO::Handle" => 0,
     "IPC::Open3" => 0,
-    "Test::More" => 0
+    "Path::Tiny" => 0,
+    "Test::DZil" => 0,
+    "Test::Fatal" => 0,
+    "Test::More" => 0,
+    "if" => 0
   },
-  "VERSION" => "1.200004",
+  "VERSION" => "1.200005",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -46,16 +52,22 @@ my %WriteMakefileArgs = (
 
 
 my %FallbackPrereqs = (
-  "Dist::Zilla::File::FromCode" => 0,
-  "Dist::Zilla::Role::InstallTool" => 0,
+  "Dist::Zilla::File::InMemory" => 0,
+  "Dist::Zilla::Role::FileGatherer" => 0,
+  "Dist::Zilla::Role::FileMunger" => 0,
   "Dist::Zilla::Role::TextTemplate" => 0,
   "File::Spec" => 0,
   "IO::Handle" => 0,
   "IPC::Open3" => 0,
+  "List::Util" => 0,
   "Module::Build" => "0.28",
   "Moose" => 0,
   "Moose::Autobox" => 0,
+  "Path::Tiny" => 0,
+  "Test::DZil" => 0,
+  "Test::Fatal" => 0,
   "Test::More" => 0,
+  "if" => 0,
   "strict" => 0,
   "warnings" => 0
 );

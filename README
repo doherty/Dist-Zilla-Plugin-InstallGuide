@@ -2,7 +2,7 @@ NAME
     Dist::Zilla::Plugin::InstallGuide - Build an INSTALL file
 
 VERSION
-    version 1.200004
+    version 1.200005
 
 SYNOPSIS
     In "dist.ini":
@@ -19,9 +19,11 @@ DESCRIPTION
     appropriate.
 
 METHODS
-  setup_installer
-    Creates the "INSTALL" file and prepare its contents, which will be
-    finalized near the end of the build process.
+  gather_files
+    Creates the INSTALL file.
+
+  munge_files
+    Inserts the appropriate installation instructions into INSTALL.
 
 AVAILABILITY
     The latest version of this module is available from the Comprehensive

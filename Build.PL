@@ -19,15 +19,17 @@ my %module_build_args = (
     "Mike Doherty <doherty\@cpan.org>"
   ],
   "dist_name" => "Dist-Zilla-Plugin-InstallGuide",
-  "dist_version" => "1.200004",
+  "dist_version" => "1.200005",
   "license" => "perl",
   "module_name" => "Dist::Zilla::Plugin::InstallGuide",
   "recommends" => {},
   "recursive_test_files" => 1,
   "requires" => {
-    "Dist::Zilla::File::FromCode" => 0,
-    "Dist::Zilla::Role::InstallTool" => 0,
+    "Dist::Zilla::File::InMemory" => 0,
+    "Dist::Zilla::Role::FileGatherer" => 0,
+    "Dist::Zilla::Role::FileMunger" => 0,
     "Dist::Zilla::Role::TextTemplate" => 0,
+    "List::Util" => 0,
     "Moose" => 0,
     "Moose::Autobox" => 0,
     "perl" => "5.008",
@@ -39,7 +41,11 @@ my %module_build_args = (
     "File::Spec" => 0,
     "IO::Handle" => 0,
     "IPC::Open3" => 0,
-    "Test::More" => 0
+    "Path::Tiny" => 0,
+    "Test::DZil" => 0,
+    "Test::Fatal" => 0,
+    "Test::More" => 0,
+    "if" => 0
   }
 );
 
@@ -49,7 +55,11 @@ my %fallback_build_requires = (
   "IO::Handle" => 0,
   "IPC::Open3" => 0,
   "Module::Build" => "0.28",
-  "Test::More" => 0
+  "Path::Tiny" => 0,
+  "Test::DZil" => 0,
+  "Test::Fatal" => 0,
+  "Test::More" => 0,
+  "if" => 0
 );
 
 
