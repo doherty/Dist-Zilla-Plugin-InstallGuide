@@ -2,7 +2,7 @@ NAME
     Dist::Zilla::Plugin::InstallGuide - Build an INSTALL file
 
 VERSION
-    version 1.200003
+    version 1.200004
 
 SYNOPSIS
     In "dist.ini":
@@ -19,7 +19,7 @@ DESCRIPTION
     appropriate.
 
 METHODS
-  gather_files
+  setup_installer
     Creates the "INSTALL" file and prepare its contents, which will be
     finalized near the end of the build process.
 

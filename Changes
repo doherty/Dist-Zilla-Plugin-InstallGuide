@@ -1,6 +1,8 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+
+1.200004  2014-10-25
   - Enable subclasses to override installation instruction text [gh-4]
   - Run one phase later to ensure install tools have already run [gh-5]
 
