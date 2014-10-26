@@ -104,8 +104,7 @@ END_TEXT
 
 =head2 gather_files
 
-Creates the C<INSTALL> file and prepare its contents, which will be finalized
-near the end of the build process.
+Creates the F<INSTALL> file.
 
 =cut
 
@@ -120,6 +119,12 @@ sub gather_files {
 
     return;
 }
+
+=head2 munge_files
+
+Inserts the appropriate installation instructions into F<INSTALL>.
+
+=cut
 
 sub munge_files {
     my $self = shift;
