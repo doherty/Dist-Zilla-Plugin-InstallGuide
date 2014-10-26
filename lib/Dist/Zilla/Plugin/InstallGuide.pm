@@ -10,6 +10,8 @@ use Moose;
 use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 with 'Dist::Zilla::Role::TextTemplate';
+with 'Dist::Zilla::Role::FileMunger';
+use List::Util 'first';
 
 =head1 SYNOPSIS
 
@@ -100,17 +102,38 @@ If you are installing into a system-wide directory, you may need to run:
     % sudo ./Build install
 END_TEXT
 
-has file_content => (is => 'ro', isa => 'Str', lazy => 1, builder => '_build_file_content');
+=head2 gather_files
 
-sub _build_file_content {
+Creates the C<INSTALL> file and prepare its contents, which will be finalized
+near the end of the build process.
+
+=cut
+
+sub gather_files {
     my $self = shift;
+
+    require Dist::Zilla::File::InMemory;
+    $self->add_file(Dist::Zilla::File::InMemory->new({
+        name => 'INSTALL',
+        content => $self->template,
+    }));
+
+    return;
+}
+
+sub munge_files {
+    my $self = shift;
+
     my $zilla = $self->zilla;
 
     my $manual_installation = '';
 
-    my %installer = map { $_->name => 1 }
-        grep { $_->name eq 'Makefile.PL' or $_->name eq 'Build.PL' }
-        @{ $zilla->files };
+    my %installer = (
+        map {
+            $_->isa('Dist::Zilla::Plugin::MakeMaker') ? ( 'Makefile.PL' => 1 ) : (),
+            $_->does('Dist::Zilla::Role::BuildPL') ? ( 'Build.PL' => 1 ) : (),
+        } @{ $zilla->plugins }
+    );
 
     if ($installer{'Build.PL'}) {
         $manual_installation .= $self->module_build_manual_installation;
@@ -124,34 +147,20 @@ sub _build_file_content {
 
     (my $main_package = $zilla->name) =~ s!-!::!g;
 
+    my $file = first { $_->name eq 'INSTALL' } @{ $zilla->files };
+
     my $content = $self->fill_in_string(
-        $self->template,
+        $file->content,
         {   dist                => \$zilla,
             package             => $main_package,
             manual_installation => $manual_installation
         }
     );
-    return $content;
-}
 
-=head2 gather_files
-
-Creates the C<INSTALL> file and prepare its contents, which will be finalized
-near the end of the build process.
-
-=cut
-
-sub gather_files {
-    my $self = shift;
-
-    require Dist::Zilla::File::FromCode;
-    $self->add_file(Dist::Zilla::File::FromCode->new({
-        name => 'INSTALL',
-        code => sub { $self->file_content },
-    }));
-
+    $file->content($content);
     return;
 }
+
 __PACKAGE__->meta->make_immutable;
 no Moose;
 1;

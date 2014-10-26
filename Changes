@@ -1,7 +1,7 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
-  - revert phase change made in last release
+  - revert phase change made in last release [gh-7]
 
 1.200004  2014-10-25
   - Enable subclasses to override installation instruction text [gh-4]
