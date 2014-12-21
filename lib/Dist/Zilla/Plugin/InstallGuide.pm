@@ -7,7 +7,6 @@ package Dist::Zilla::Plugin::InstallGuide;
 # ABSTRACT: Build an INSTALL file
 # VERSION
 use Moose;
-use Moose::Autobox;
 with 'Dist::Zilla::Role::FileGatherer';
 with 'Dist::Zilla::Role::TextTemplate';
 with 'Dist::Zilla::Role::FileMunger';

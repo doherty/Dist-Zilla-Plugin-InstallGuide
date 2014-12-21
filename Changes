@@ -1,6 +1,7 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+  - Don't import Moose::Autobox [gh-8; ether]
 
 1.200005  2014-10-26
   - revert phase change made in last release [gh-7]
