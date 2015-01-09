@@ -30,7 +30,6 @@ my %WriteMakefileArgs = (
     "Dist::Zilla::Role::TextTemplate" => 0,
     "List::Util" => 0,
     "Moose" => 0,
-    "Moose::Autobox" => 0,
     "strict" => 0,
     "warnings" => 0
   },
@@ -44,7 +43,7 @@ my %WriteMakefileArgs = (
     "Test::More" => 0,
     "if" => 0
   },
-  "VERSION" => "1.200005",
+  "VERSION" => "1.200006",
   "test" => {
     "TESTS" => "t/*.t"
   }
@@ -62,7 +61,6 @@ my %FallbackPrereqs = (
   "List::Util" => 0,
   "Module::Build" => "0.28",
   "Moose" => 0,
-  "Moose::Autobox" => 0,
   "Path::Tiny" => 0,
   "Test::DZil" => 0,
   "Test::Fatal" => 0,

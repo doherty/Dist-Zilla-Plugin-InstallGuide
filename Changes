@@ -1,6 +1,8 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+
+1.200006  2015-01-08
   - Don't import Moose::Autobox [gh-8; ether]
 
 1.200005  2014-10-26

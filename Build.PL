@@ -19,7 +19,7 @@ my %module_build_args = (
     "Mike Doherty <doherty\@cpan.org>"
   ],
   "dist_name" => "Dist-Zilla-Plugin-InstallGuide",
-  "dist_version" => "1.200005",
+  "dist_version" => "1.200006",
   "license" => "perl",
   "module_name" => "Dist::Zilla::Plugin::InstallGuide",
   "recommends" => {},
@@ -31,7 +31,6 @@ my %module_build_args = (
     "Dist::Zilla::Role::TextTemplate" => 0,
     "List::Util" => 0,
     "Moose" => 0,
-    "Moose::Autobox" => 0,
     "perl" => "5.008",
     "strict" => 0,
     "warnings" => 0

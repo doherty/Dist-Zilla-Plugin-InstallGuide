@@ -4,7 +4,7 @@ Dist::Zilla::Plugin::InstallGuide - Build an INSTALL file
 
 # VERSION
 
-version 1.200005
+version 1.200006
 
 # SYNOPSIS
 
