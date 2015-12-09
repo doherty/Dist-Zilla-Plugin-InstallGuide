@@ -49,8 +49,8 @@ If you have cpanm, you only need one line:
 
 If it does not have permission to install modules to the current perl, cpanm
 will automatically set up and install to a local::lib in your home directory.
-See the local::lib documentation for details on enabling it in your
-environment.
+See the local::lib documentation (https://metacpan.org/pod/local::lib) for
+details on enabling it in your environment.
 
 ## Installing with the CPAN shell
 
@@ -81,7 +81,8 @@ Then install it:
     % make install
 
 If your perl is system-managed, you can create a local::lib in your home
-directory to install modules to. See the local::lib documentation for details.
+directory to install modules to. For details, see the local::lib documentation:
+https://metacpan.org/pod/local::lib
 END_TEXT
 
 has module_build_manual_installation => (is => 'ro', isa => 'Str', default => <<'END_TEXT');
@@ -96,7 +97,8 @@ Then install it:
     % ./Build install
 
 If your perl is system-managed, you can create a local::lib in your home
-directory to install modules to. See the local::lib documentation for details.
+directory to install modules to. For details, see the local::lib documentation:
+https://metacpan.org/pod/local::lib
 END_TEXT
 
 =head2 gather_files
