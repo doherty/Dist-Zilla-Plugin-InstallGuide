@@ -47,10 +47,10 @@ If you have cpanm, you only need one line:
 
     % cpanm {{ $package }}
 
-If you are installing into a system-wide directory, you may need to pass the
-"-S" flag to cpanm, which uses sudo to install the module:
-
-    % cpanm -S {{ $package }}
+If it does not have permission to install modules to the current perl, cpanm
+will automatically set up and install to a local::lib in your home directory.
+See the local::lib documentation for details on enabling it in your
+environment.
 
 ## Installing with the CPAN shell
 
@@ -80,9 +80,8 @@ Then install it:
 
     % make install
 
-If you are installing into a system-wide directory, you may need to run:
-
-    % sudo make install
+If your perl is system-managed, you can create a local::lib in your home
+directory to install modules to. See the local::lib documentation for details.
 END_TEXT
 
 has module_build_manual_installation => (is => 'ro', isa => 'Str', default => <<'END_TEXT');
@@ -96,9 +95,8 @@ Then install it:
 
     % ./Build install
 
-If you are installing into a system-wide directory, you may need to run:
-
-    % sudo ./Build install
+If your perl is system-managed, you can create a local::lib in your home
+directory to install modules to. See the local::lib documentation for details.
 END_TEXT
 
 =head2 gather_files
