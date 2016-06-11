@@ -18,9 +18,11 @@ In C<dist.ini>:
 
     [InstallGuide]
 
-=for test_synopsis
-1;
-__END__
+=begin :prelude
+
+=for test_synopsis BEGIN { die "SKIP: synopsis isn't perl code" }
+
+=end :prelude
 
 =head1 DESCRIPTION
 
