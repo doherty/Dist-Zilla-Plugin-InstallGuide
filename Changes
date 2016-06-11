@@ -1,6 +1,7 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+  - Updated text to suggest local::lib, and not recommend sudo [gh-9]
 
 1.200006  2015-01-08
   - Don't import Moose::Autobox [gh-8; ether]
