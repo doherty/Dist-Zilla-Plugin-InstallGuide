@@ -67,7 +67,7 @@ Alternatively, if your CPAN shell is set up, you should just be able to do:
 ## Documentation
 
 {{ $dist->name }} documentation is available as POD.
-You can run perldoc from a shell to read the documentation:
+You can run `perldoc` from a shell to read the documentation:
 
     % perldoc {{ $package }}
 END_TEXT
@@ -83,7 +83,7 @@ Then install it:
 
     % make install
 
-On Windows platforms, you should use dmake or nmake, instead of make.
+On Windows platforms, you should use `dmake` or `nmake`, instead of `make`.
 
 If your perl is system-managed, you can create a local::lib in your home
 directory to install modules to. For details, see the local::lib documentation:
