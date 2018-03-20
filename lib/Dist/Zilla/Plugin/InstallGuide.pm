@@ -71,7 +71,7 @@ by running the manual build process described above.
 ## Documentation
 
 {{ $dist->name }} documentation is available as POD.
-You can run perldoc from a shell to read the documentation:
+You can run `perldoc` from a shell to read the documentation:
 
     % perldoc {{ $package }}
 END_TEXT
@@ -86,6 +86,8 @@ then build it:
 Then install it:
 
     % make install
+
+On Windows platforms, you should use `dmake` or `nmake`, instead of `make`.
 
 If your perl is system-managed, you can create a local::lib in your home
 directory to install modules to. For details, see the local::lib documentation:
@@ -102,6 +104,13 @@ then build it:
 Then install it:
 
     % ./Build install
+
+Or the more portable variation:
+
+    % perl Build.PL
+    % perl Build
+    % perl Build test
+    % perl Build install
 
 If your perl is system-managed, you can create a local::lib in your home
 directory to install modules to. For details, see the local::lib documentation:
