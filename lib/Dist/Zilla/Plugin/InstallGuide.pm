@@ -118,7 +118,7 @@ https://metacpan.org/pod/local::lib
 END_TEXT
 
 has cpan_reference => (is => 'ro', isa => 'Str', default => <<END_TEXT);
-Please for more information on installing Perl modules via CPAN, please see:
+For more information on installing Perl modules via CPAN, please see:
 https://www.cpan.org/modules/INSTALL.html
 END_TEXT
 
