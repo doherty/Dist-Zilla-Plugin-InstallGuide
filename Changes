@@ -1,6 +1,7 @@
 Revision history for Perl extension {{$dist->name}}
 
 {{$NEXT}}
+ - Better instructions for Windows [jonasbn]
 
 1.200007  2016-06-11
   - Updated text to suggest local::lib, and not recommend sudo [gh-9]
