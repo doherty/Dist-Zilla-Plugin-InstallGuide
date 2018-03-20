@@ -64,6 +64,10 @@ Alternatively, if your CPAN shell is set up, you should just be able to do:
 
 {{ $manual_installation }}
 
+The prerequisites of this distribution will also have to be installed manually. The
+prerequisites are listed in one of the files: `MYMETA.yml` or `MYMETA.json` generated
+by running the manual build process described above.
+
 ## Documentation
 
 {{ $dist->name }} documentation is available as POD.
@@ -113,6 +117,11 @@ directory to install modules to. For details, see the local::lib documentation:
 https://metacpan.org/pod/local::lib
 END_TEXT
 
+has cpan_reference => (is => 'ro', isa => 'Str', default => <<END_TEXT);
+Please for more information on installing Perl modules via CPAN, please see:
+https://www.cpan.org/modules/INSTALL.html
+END_TEXT
+
 =head2 gather_files
 
 Creates the F<INSTALL> file.
@@ -122,10 +131,13 @@ Creates the F<INSTALL> file.
 sub gather_files {
     my $self = shift;
 
+    my $content = $self->template;
+    $content .= $self->cpan_reference;
+
     require Dist::Zilla::File::InMemory;
     $self->add_file(Dist::Zilla::File::InMemory->new({
         name => 'INSTALL',
-        content => $self->template,
+        content => $content,
     }));
 
     return;
@@ -169,7 +181,7 @@ sub munge_files {
         $file->content,
         {   dist                => \$zilla,
             package             => $main_package,
-            manual_installation => $manual_installation
+            manual_installation => $manual_installation,
         }
     );
 
