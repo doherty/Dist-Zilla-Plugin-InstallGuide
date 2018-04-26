@@ -87,7 +87,9 @@ Then install it:
 
     % make install
 
-On Windows platforms, you should use `dmake` or `nmake`, instead of `make`.
+On Windows platforms, you should replace `make` with the result of
+`perl -MConfig -e "print $Config{make}"` (which will usually be either
+`dmake`, `gmake`, or `nmake`).
 
 If your perl is system-managed, you can create a local::lib in your home
 directory to install modules to. For details, see the local::lib documentation:
