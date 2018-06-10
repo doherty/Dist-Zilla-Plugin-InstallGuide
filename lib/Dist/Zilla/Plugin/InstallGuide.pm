@@ -137,7 +137,7 @@ sub gather_files {
     my $self = shift;
 
     my $content = $self->template;
-    $content .= "\n" . $self->cpan_reference;
+    $content .= "\n\n" . $self->cpan_reference;
 
     require Dist::Zilla::File::InMemory;
     $self->add_file(Dist::Zilla::File::InMemory->new({
