@@ -63,7 +63,6 @@ Alternatively, if your CPAN shell is set up, you should just be able to do:
 ## Manual installation
 
 {{ $manual_installation }}
-
 The prerequisites of this distribution will also have to be installed manually. The
 prerequisites are listed in one of the files: `MYMETA.yml` or `MYMETA.json` generated
 by running the manual build process described above.
@@ -76,10 +75,15 @@ You can run `perldoc` from a shell to read the documentation:
     % perldoc {{ $package }}
 END_TEXT
 
-has makemaker_manual_installation => (is => 'ro', isa => 'Str', default => <<'END_TEXT');
+our $common_instructions = <<'END_TEXT';
 As a last resort, you can manually install it. Download the tarball, untar it,
 then build it:
 
+END_TEXT
+
+has makemaker_manual_installation => (
+    is => 'ro', isa => 'Str',
+    default => $common_instructions . <<'END_TEXT',
     % perl Makefile.PL
     % make && make test
 
@@ -93,11 +97,11 @@ If your perl is system-managed, you can create a local::lib in your home
 directory to install modules to. For details, see the local::lib documentation:
 https://metacpan.org/pod/local::lib
 END_TEXT
+);
 
-has module_build_manual_installation => (is => 'ro', isa => 'Str', default => <<'END_TEXT');
-As a last resort, you can manually install it. Download the tarball, untar it,
-then build it:
-
+has module_build_manual_installation => (
+    is => 'ro', isa => 'Str',
+    default => $common_instructions . <<'END_TEXT',
     % perl Build.PL
     % ./Build && ./Build test
 
@@ -116,6 +120,7 @@ If your perl is system-managed, you can create a local::lib in your home
 directory to install modules to. For details, see the local::lib documentation:
 https://metacpan.org/pod/local::lib
 END_TEXT
+);
 
 has cpan_reference => (is => 'ro', isa => 'Str', default => <<END_TEXT);
 For more information on installing Perl modules via CPAN, please see:
@@ -132,7 +137,7 @@ sub gather_files {
     my $self = shift;
 
     my $content = $self->template;
-    $content .= $self->cpan_reference;
+    $content .= "\n\n" . $self->cpan_reference;
 
     require Dist::Zilla::File::InMemory;
     $self->add_file(Dist::Zilla::File::InMemory->new({
